@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -35,6 +36,28 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public String toString() {
 		return "User [username=" + username + "]";
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(password, userFiles, username);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(password, other.password) && Objects.equals(userFiles, other.userFiles)
+				&& Objects.equals(username, other.username);
 	}
 
 

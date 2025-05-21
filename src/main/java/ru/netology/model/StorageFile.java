@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @Table(name = "files")
@@ -119,6 +121,29 @@ public class StorageFile {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(fileContent);
+		result = prime * result + Objects.hash(date, filename, size, user);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StorageFile other = (StorageFile) obj;
+		return Objects.equals(date, other.date) && Arrays.equals(fileContent, other.fileContent)
+				&& Objects.equals(filename, other.filename) && Objects.equals(size, other.size)
+				&& Objects.equals(user, other.user);
 	}
 
 }
