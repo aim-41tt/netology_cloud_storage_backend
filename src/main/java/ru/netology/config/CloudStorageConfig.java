@@ -83,14 +83,9 @@ public class CloudStorageConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.cors().and()
-	        .csrf(t -> t.disable())
-	        .headers()
-	        .frameOptions(t -> t.disable())
-
-	    .and()
+	        .csrf(csrf -> csrf.disable())
 	        .authorizeRequests()
 	            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-	            .antMatchers("/h2-console/**").permitAll()
 	            .antMatchers("/login").permitAll()
 	            .anyRequest().authenticated()
 	    .and()
@@ -102,5 +97,6 @@ public class CloudStorageConfig extends WebSecurityConfigurerAdapter {
 
 	    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+
 
 }
