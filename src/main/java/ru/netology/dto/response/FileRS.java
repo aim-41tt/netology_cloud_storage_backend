@@ -1,5 +1,7 @@
 package ru.netology.dto.response;
 
+import java.util.Objects;
+
 public class FileRS {
 
 	private String filename;
@@ -40,6 +42,23 @@ public class FileRS {
 	 */
 	public void setSize(Long size) {
 		this.size = size;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(filename, size);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FileRS other = (FileRS) obj;
+		return Objects.equals(filename, other.filename) && Objects.equals(size, other.size);
 	}
 
 }
