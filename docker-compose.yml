@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  serv:
+    image: backend
+    container_name: 'cloud-storage-server'
+    build: ./
+    ports:
+      - "9999:9999"
+    depends_on:
+      - main-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://main-db:5432/netology?user=postgres&password=postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - app-network
+
+  main-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: netology
+    ports:
+      - "5480:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
